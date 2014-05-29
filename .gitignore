@@ -1,0 +1,13 @@
+.vagrant
+Berksfile.lock
+/cookbooks
+# Bundler
+bin/*
+.bundle/*
+.kitchen/
+.kitchen.local.yml
+
+/data_bags
+/nodes
+
+.DS_Store

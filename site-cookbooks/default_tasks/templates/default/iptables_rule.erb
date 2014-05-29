@@ -1,0 +1,4 @@
+# Port for ssh
+-A FWR -p tcp -m tcp --dport <%=node['sshd']['Port']%> -j ACCEPT
+# Port for http
+-A FWR -p tcp -m tcp --dport <%=node['nginx']['port']%> -j ACCEPT
