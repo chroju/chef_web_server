@@ -58,10 +58,10 @@ You have to describe users settings which you want to make on your server. Make 
 Sample:
 ```json
 {
-  "id" : "sample,
+  "id" : "sample",
   "username" : "sample",
   "group" : "sample, wheel",
-  "password" : "VZsCzz926IPb.",
+  "password" : "hogefuga",
   "key" : "ssh-rsa AAAAB3N..."
 }
 ```
