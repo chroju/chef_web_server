@@ -29,8 +29,8 @@ template "nginx" do
 end
 
 # ディレクトリ作成
-directories = ["/etc/nginx/sites-available","/etc/nginx/sites-enabled","/var/www","/var/www/#{node['nginx']['root']}","/var/www/#{node['unicorn']['root']}"]
-directories.each do |directory_name|
+dirs_644 = ["/etc/nginx/sites-available","/etc/nginx/sites-enabled"]
+dirs_644.each do |directory_name|
   directory "#{directory_name}" do
     owner "root"
     group "root"
@@ -39,6 +39,15 @@ directories.each do |directory_name|
   end
 end
 
+dirs_755 = ["/var/www","/var/www/#{node['nginx']['root']}","/var/www/#{node['unicorn']['root']}"]
+dirs_755.each do |directory_name|
+  directory "#{directory_name}" do
+    owner "root"
+    group "root"
+    mode 0755
+    action :create
+  end
+end
 # sites設定をtemplateごとに実行
 node['nginx']['nginx_sites'].each do |site|
   # templateからsites-available配下に設定ファイルを配置
