@@ -4,7 +4,7 @@ upstream unicorn-of-my-app {
 
 server {
   listen <%=node['nginx']['port']%>;
-  server_name <%=node['nginx']['domain']%> <%=node[:ipaddress]%>
+  server_name <%=node['nginx']['domain']%> <%=node[:ipaddress]%>;
 
   root /var/www/<%=node['nginx']['root']%>;
   access_log /var/log/nginx/<%=node['nginx']['access_log']%>;
