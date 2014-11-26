@@ -39,7 +39,7 @@ dirs_644.each do |directory_name|
   end
 end
 
-dirs_755 = ["/var/www","/var/www/#{node['nginx']['root']}","/var/www/#{node['unicorn']['root']}"]
+dirs_755 = ["/var/www","/var/www/#{node['nginx']['root']}"] + node["nginx"]["apps"]
 dirs_755.each do |directory_name|
   directory "#{directory_name}" do
     owner "root"
@@ -48,8 +48,9 @@ dirs_755.each do |directory_name|
     action :create
   end
 end
+
 # sites設定をtemplateごとに実行
-node['nginx']['nginx_sites'].each do |site|
+%w(default rails).each do |site|
   # templateからsites-available配下に設定ファイルを配置
   template "nginx_sites_available" do
     path "/etc/nginx/sites-available/#{site}"

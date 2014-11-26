@@ -1,24 +1,5 @@
-upstream unicorn-of-my-app {
-  server unix:/var/www/<%=node['unicorn']['root']%>/shared/tmp/sockets/unicorn.sock;
-}
-
 server {
-  listen <%=node['nginx']['port']%>;
-  server_name <%=node['nginx']['domain']%> <%=node[:ipaddress]%>;
-
-  root /var/www/<%=node['nginx']['root']%>;
-  access_log /var/log/nginx/<%=node['nginx']['access_log']%>;
-  error_log /var/log/nginx/<%=node['nginx']['error_log']%>;
-
-  location /<%=node['unicorn']['root']%> {
-    alias /var/www/<%=node['unicorn']['root']%>/current;
-    try_files $uri $uri.html $uri/index.html @unicorn-of-my-app;
-  }
- 
-  location @unicorn-of-my-app {
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_pass http://unicorn-of-my-app;
-  }
+  listen <%=node['nginx']['port']%> default_server;
+  server_name _;
+  deny all;
 }
